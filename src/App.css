@@ -46,6 +46,11 @@
   font-weight: bold;
 }
 
+.botoes button:focus,
+button:active {
+  animation: pulse 0.3s ease-out 1;
+}
+
 .ruim {
    background: red;
 }
@@ -62,6 +67,18 @@
 
 
 
-
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:none;
+  }
+}
 
 
