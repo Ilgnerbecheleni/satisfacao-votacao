@@ -21,7 +21,7 @@ function App () {
   async function atualiza () {}
 
   useEffect(() => {
-    lerDados()
+    lerDados();
   }, [])
 
   async function alterarBD (data) {
@@ -30,7 +30,7 @@ function App () {
         .from('satisfacao')
         .update(data)
         .eq('id', '1')
-
+        lerDados();
       if (error) throw error
     } catch (error) {
       alert(error.message)
