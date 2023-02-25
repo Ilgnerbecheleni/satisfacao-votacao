@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .App-logo {
@@ -24,15 +25,43 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+.botoes{
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.botoes button{
+  height: 40px;
+  width: 120px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
 }
+
+.ruim {
+   background: red;
+}
+
+
+.bom {
+  background: rgb(216, 231, 9);
+}
+
+
+.otimo {
+  background: rgb(57, 185, 18);
+}
+
+
+
+
+
+
