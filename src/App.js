@@ -1,27 +1,41 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import { supabase } from './client'
 function App () {
   const [dado, setDado] = useState({})
 
+  function fetchSatisfacao() {
+    return new Promise((resolve, reject) => {
+      supabase
+        .from('satisfacao')
+        .select('*')
+        .then(({ data, error }) => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve(data)
+          }
+        })
+    })
+  }
+
+
+
   async function lerDados () {
     try {
-      const { data, error } = await supabase.from('satisfacao').select('*')
-      if (error) throw error
-      if (data != null) {
-        // console.log(data)// [product1,product2,product3]
-        setDado(...data)
-        console.log(dado)
-      }
+      const data = await fetchSatisfacao();
+      setDado(data[0]);
+      return data[0];
+      console.log(dado);
     } catch (error) {
-      alert(error.message)
+      console.log(error)
     }
   }
 
   async function atualiza () {}
 
   useEffect(() => {
-    lerDados();
+lerDados();
   }, [])
 
   async function alterarBD (data) {
@@ -30,8 +44,10 @@ function App () {
         .from('satisfacao')
         .update(data)
         .eq('id', '1')
-        lerDados();
-      if (error) throw error
+
+      if (error) {throw error}
+      else{setDado(data);}
+
     } catch (error) {
       alert(error.message)
     }
@@ -39,12 +55,15 @@ function App () {
 
   // eslint-disable-next-line no-redeclare
   async function atualiza (valor) {
-    const prev = dado[valor]
+
+    const antigo = await lerDados();
+    const prev = antigo[valor]
     const atual = prev + 1
-    const newData = { ...dado, [valor]: atual }
-    alterarBD(newData)
-    setDado(newData)
-    console.log(newData)
+    let newData = { ...antigo, [valor]: atual }
+    alterarBD(newData);
+    lerDados();
+    console.log(newData);
+
   }
 
   return (
